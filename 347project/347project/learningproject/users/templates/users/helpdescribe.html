@@ -1,0 +1,48 @@
+{% extends 'users/base.html' %}
+{% block title_block %} Home {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5 col-sm-6">
+        </div>
+        <a href="{% url 'help' %}">< Back</a>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom text-center">
+            <h2>Read Carefully..</h2>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <p>If you've bought a course and it’s not showing up in the My learning section of your Udemy account, this article explains the most common reasons for this, and how you can find your course.
+
+Please note: if you've tried purchasing a course through the Apple App Store or Google Play, and are unable to find it, please review the articles below.
+
+Missing iOS Course Purchases (Apple App Store)
+Missing Android App Udemy Purchases (Google Play)
+If you don’t see the course you purchased on the My learning page, and it’s not located in the Archived section of your account, please do the following:
+
+Confirm you received a confirmation email for the course purchase
+
+1. After enrolling in a course, check to see that you’ve received a confirmation email from Udemy. A confirmation email from udemy@email.udemy.com will be sent to the email address registered to your Udemy account. Be sure to also check your junk mail folder.
+
+2. If you don’t see a confirmation email in that email account, this could indicate you purchased the course while logged into Udemy with a different email address (or with an account that was created with an accidental typo: see below for more information).
+
+See if you have multiple accounts registered with Udemy: occasionally students create more than one Udemy account by mistake. If you use multiple email accounts, or have an Apple, Facebook, or Google account, try logging in with the associated email addresses. Check to see if the course you purchased is in that account.
+If you discover that you have created a second Udemy account by accident, and would like to merge the two accounts, please review our rules and instructions on how to merge accounts.
+If you didn’t receive a confirmation email in your email accounts, and it’s not in your spam folders, this could indicate the purchase did not go through.
+
+Check your banking information
+
+Confirm that the course was in fact purchased by double checking the payment history in your banking or PayPal account.
+
+If the purchase is showing in your financial information, but you have not been able to locate the course following the steps outlined above, you may have entered your email address incorrectly when you first signed up for Udemy. As a result, our system would attempt sending the confirmation email to that address, instead of the correct one.
+
+If you believe this may have happened, please contact our Support Team and provide the information that’s requested in the form.</p>
+</div>
+
+{% endblock content %}

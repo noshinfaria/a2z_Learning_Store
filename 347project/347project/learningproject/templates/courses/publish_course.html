@@ -1,0 +1,27 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} Create a course {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5 col-sm-6">
+        </div>
+        <a href="{% url 'home' %}">< Back</a>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <h2 class="text-center">Create your course here</h2>
+        </div>
+    </div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{form|crispy}}
+        {% csrf_token %}
+        <br>
+        <button type="submit" class="btn btn-success btn-sm">Publish</button>
+    </form>
+
+</div>
+
+{% endblock content %}

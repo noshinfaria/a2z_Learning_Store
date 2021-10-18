@@ -1,0 +1,70 @@
+{% extends 'users/base.html' %}
+{% load embed_video_tags %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title_block %} {{course.course_title}} {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5 col-sm-6">
+        </div>
+        <a href="{% url 'courses:courses' %}">< Back</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="text-center p-5 border-bottom"><strong>{{course.course_title}}</strong>
+        {% if request.user == course.teacher %}
+        <a href="{% url 'courses:course_update' course.slug %}" style="color: #333;"><small><i class="far fa-edit"></i></small></a>
+        <a href="{% url 'courses:course_delete' course.slug %}" style="color: #333;"><small><i class="fas fa-trash"></i></small></a>
+        {% endif%}
+    </h2>
+    <div class="row border-bottom">
+        <div class="col-sm-8">
+            <strong>Instructor: </strong>{{course.teacher}} <br>
+            <strong>Published on: </strong>{{course.publish_date}} <br>
+            <strong>Update on: </strong>{{course.update_date}} <br><br><br>
+        </div>
+        <!--div class="col">
+            <img src="/media/{{course.course_poster}}" alt="course_poster" width="80%" height="300px">
+            <br><br>
+        </div-->
+
+        <div class="text-center">
+            {% video course.video '900x500' %}
+        </div>
+
+        <p>{{course.course_article|linebreaks}}</p><br>
+    </div>
+</div>
+<!--h3>Practice quiz</h3>
+<iframe src="{{course.quiz_url}}" frameborder="0" width="500px" height="1000px"></iframe-->
+
+<hr>
+<div class="container">
+    Questions | {{course.course_question.count}}
+    <div class="row">
+        <div class="col-sm-6">
+            <h5>Questions</h5>
+            {% for question in course.course_question.all %}
+            <p>
+                @{{question.user}} <br>
+                <a href="{% url 'courses:question' pk=question.pk %}">{{question}}</a>
+            </p>
+            {% endfor %}
+        </div>
+        {% if not perms.courses.add_course %}
+        <div class="col-sm-6">
+            <form action="" method="POST">
+                {{form|crispy}}
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-info btn-sm">Ask</button>
+                <br><br>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

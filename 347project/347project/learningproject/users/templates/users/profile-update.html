@@ -1,0 +1,43 @@
+{% extends 'users/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+
+        <!-- Main Content Here -->
+        <div class="card o-hidden border-0 shadow-lg ">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                    <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Update Your Profile!</h1>
+                  </div>
+
+                    <a href="{% url 'profile' %}">< Back</a>
+                  </div>
+
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{user_form | crispy}}
+                    {{profile_form | crispy}}
+                        <button type="submit" class="site-btn btn-success btn-block">Save</button>
+                  </form>
+                  <hr>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content %}

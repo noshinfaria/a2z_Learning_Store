@@ -1,0 +1,209 @@
+<!doctype html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+    <!--Font Link-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans:wght@800&display=swap"
+          rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'webuni/css/bootstrap.min.css'%}"/>
+    <link rel="stylesheet" href="{% static 'webuni/css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'webuni/css/owl.carousel.css' %}"/>
+    <link rel="stylesheet" href="{% static 'webuni/css/style.css'%}"/>
+    <link rel="stylesheet" href="{% static 'webuni/css/freelancer.css'%}"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+
+    <style>
+      {% block css %} {% endblock %}
+
+
+
+
+
+    </style>
+</head>
+
+<body id="bg">
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><img class="logo"
+                                                             src="{% static 'users/images/smalllogo-01.png'%}"
+                                                             alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup ">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+
+                {% if user.is_authenticated %}
+                {% if perms.courses.add_course %}
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="buton" aria-expanded="false">Courses</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'courses:publish' %}">Add Course</a></li>
+                        <li><a class=" dropdown-item" href="{% url 'courses:my_courses' %}">My Courses</a></li>
+                        <li><a class="dropdown-item" href="{% url 'courses:courses' %}">All courses</a></li>
+                    </ul>
+                </div>
+                {% else%}
+                <a class="nav-link" href="{% url 'courses:courses' %}">Courses</a>
+                {% endif %}
+                <a class="nav-link" href="{% url 'store' %}">Store</a>
+                <a class="nav-link" href="{% url 'post_list' %}">Vlogs</a>
+                <a class="nav-link" href="{% url 'Tracker' %}">Tracker</a>
+
+
+                {% else %}
+
+                <a class="nav-link" href="{% url 'account_login' %}">Courses</a>
+                <a class="nav-link" href="{% url 'account_login' %}">Store</a>
+                <a class="nav-link" href="{% url 'account_login' %}">Vlogs</a>
+                <a class="nav-link" href="{% url 'account_login' %}">Tracker</a>
+
+                {% endif %}
+
+
+        <div>
+        <form class="d-flex" id="authstyle">
+            {% if user.is_authenticated %}
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button"
+                   aria-expanded="false"><i class="fas fa-user"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'help' %}">Help</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <a href="{% url 'account_signup' %}" class="btn "
+               style="color: white; background-color: #fd5e14; margin-left: 500px;" type="submit"
+               id=" header-links"> Create Account </a>
+            <a href="{% url 'account_login' %}" class="btn "
+               style="color: white; background-color: #fd5e14; margin-left: 10px; " type="submit"
+               id=" header-links">Log In</a>
+            {% endif %}
+        </form>
+        </div>
+                </div>
+        </div>
+        {% if user.is_authenticated %}
+
+        <button type="button" class="btn btn-secondary mx-2" id="popcart"
+                data-container="body" data-toggle="popover" data-placement="bottom" data-html="true"
+                data-content="Vivamus
+              sagittis lacus vel augue laoreet rutrum faucibus.">
+            Cart(<span id="cart">0 </span>)
+        </button>
+        {% endif %}
+    </div>
+    </div>
+    </div>
+</nav>
+
+<!-- Hero section end -->
+<div>
+    <div class="container">
+
+        {% for message in messages %}
+
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% block content %}
+{% endblock %}
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+{% block js %} {% endblock %}
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+<br>
+
+</body>
+
+
+<footer class="spad pb-0">
+    <div class="footer-bottom">
+        <div class="footer-warp">
+            <ul class="footer-menu">
+                <li><a href="{% url 'terms_conditions' %}">Terms & Conditions</a></li>
+                <li><a href="{% url 'privacy' %}">Privacy</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            </ul>
+            <div class="">Copyright &copy; a2z Learning Store
+                <script>document.write(new Date().getFullYear());</script>
+                All rights reserved.
+            </div>
+        </div>
+    </div>
+
+</footer>
+<!--====== Javascripts & Jquery ======-->
+<script src="{% static 'webuni/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'webuni/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'webuni/js/mixitup.min.js' %}"></script>
+<script src="{% static 'webuni/js/circle-progress.min.js' %}"></script>
+<script src="{% static 'webuni/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'webuni/js/main.js' %}"></script>
+<script src="{% static 'webuni/js/freelancer.js' %}"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+
+
+
+
+
+</script>
+
+</html>

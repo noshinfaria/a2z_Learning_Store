@@ -1,0 +1,7 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+August 04, 2021 - 16:57:07
+Django version 3.2.5, using settings 'learningproject.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.

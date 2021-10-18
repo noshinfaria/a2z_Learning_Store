@@ -1,0 +1,67 @@
+{% extends 'users/base.html' %}
+
+{% block title %} {{product.product_name}}- A2Z Store {% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+
+        <div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5 col-sm-6">
+        </div>
+        <a href="{% url 'store' %}">< Back</a>
+    </div>
+</div>
+
+        <!-- Main Content Here -->
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-3 my-5">
+            <img src="/media/{{product.image}}" class="rounded float-right" height="400px" width="300px">
+          </div>
+          <div class="card o-hidden border-0 shadow-lg my-5 col-lg-5">
+            <div class="card-body">
+                <h2>{{product.product_name}}</h2>
+                <p><strong> MRP TK. </strong> {{product.price}} <strong>/- bdt</strong></p>
+                <p><strong>Description : </strong>{{product.desc}}</p>
+                <a href="{{product.book_url}}" class="site-btn btn-sm btn-primary shadow-sm">Read Book</a>
+            </div>
+          </div>
+        </div>
+
+
+
+
+</div>
+
+<script>
+
+    console.log('working');
+    if(localStorage.getItem('cart') == null){
+    var cart = {};
+    }
+    else{
+    cart= JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    }
+
+    $('.cart').click(function(){
+    console.log('clicked');
+    var idstr = this.id.toString();
+    console.log(idstr);
+    if (cart[idstr] != undefined){
+    cart[idstr] = cart[idstr]+1;
+    }
+    else
+    {
+    cart[idstr] = 1;
+    }
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    });
+    $('#popcart').popover()
+    document.getElementById("popcart").setAttribute('data-content', '<h5> cart </h5>');
+</script>
+
+{% endblock content %}
